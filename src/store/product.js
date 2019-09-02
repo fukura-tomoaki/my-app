@@ -10,8 +10,12 @@ export default {
         detail: store => state.detail
     },
     mutations: {
-        set(state,{detail}){state.detail = detail},
-        clear(state){state.detail = {}}
+        set(state,{detail}){
+            state.detail = detail
+        },
+        clear(state){
+            state.detail = {}
+        }
     },
     actions: {
         load({commit},id) {

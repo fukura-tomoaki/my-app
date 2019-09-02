@@ -5,7 +5,11 @@
       <router-link to="/product">商品情報</router-link>
     </nav>
     <!-- コンポーネントの表示領域 -->
-    <router-view/>
+    <transition name="view">
+      <router-view/>
+    </transition>
+    <!-- オーバレイ用のコンポーネント -->
+    <LoadingOverlay />
   </div>
 </template>
 
@@ -24,7 +28,18 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 .router-link-active {
   background: #e25139
+}
+
+.view-enter-active, .view-leave-active {
+  transition: opacity 0.5s;
+}
+.view-leave-active {
+  position: absolute;
+}
+.view-enter, .view-leave-to {
+  opacity: 0;
 }
 </style>

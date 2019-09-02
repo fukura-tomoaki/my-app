@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-//コンポーネント
 import Home from '@/views/Home.vue'
 import ProductList from '@/views/ProductList.vue' //商品一覧
 import Product from '@/views/Product.vue'　　　　　//商品詳細（親ルート）
+
+// プロダクトの子ルートたち
 import productHome from '@/views/Product/Home.vue'
 import productReview from '@/views/Product/Review.vue'
 import productReviewDetail from '@/views/Product/ReviewDetail.vue'
+import store from './store';
 
 
 //VueRouterをプラグインとして登録
@@ -18,6 +20,10 @@ const router = new VueRouter({
     base: '/my-app/',
     mode:'history',
     routes:[
+        {
+            path: '/',
+            component: Home
+        },
         //商品一覧ページ
         { 
             path:'/product',
@@ -45,12 +51,27 @@ const router = new VueRouter({
                 {
                     name: 'review-detail',
                     path: 'review/:rid',
-                    component: productReviewDetail
+                    component: productReviewDetail,
+                    props: route => ({
+                        rid: Number(route.params.rid)
+                    })
                 }
 
             ]
         }
     ]
+})
+
+
+// ルーターナビゲーション前にフック
+router.beforeEach((to, from ,next) => {
+    store.commit('view/start')
+    next()
+})
+
+// ルーターナビゲーション後にフック
+router. afterEach((to, from ,next) => {
+    store.commit('view/end')
 })
 
 //生成したルーターをエクスポート
