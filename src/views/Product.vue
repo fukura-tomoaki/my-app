@@ -1,12 +1,14 @@
 <template>
     <div class="product">
-        <h1>{{ detail.name}}</h1>
+        <h1>{{ detail.name }}</h1>
         <nav class="nav">
             <router-link :to="{ name: 'product-home'}">商品詳細</router-link>
             <router-link :to="{ name: 'product-review'}">レビュー</router-link>
         </nav>
         <!-- ここに子ルートを埋め込む -->
-        <router-view/>
+        <transition>
+            <router-view/>
+        </transition>
     </div>
 </template>
 
